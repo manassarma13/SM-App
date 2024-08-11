@@ -7,7 +7,6 @@ const dotenv = require('dotenv');
 const postRoutes = require('./routes/PostRoutes');
 const userRoutes = require('./routes/UserRoutes');
 const authMiddleware = require('./middleware/authMiddleware');
-const { registerUser } = require('./controllers/UserController');
 
 dotenv.config();
 

@@ -31,27 +31,30 @@ const PostItem = ({ post }) => {
 
     return (
         <div className="post-item">
-            <Avatar username={username} />
-            <div className="post-content">
-                <p>{postText}</p>
-                <small>Posted by: {username}</small>
-                <div className="comments-section">
-                    {post?.comments.map(comment => (
+        <Avatar username={username} />
+        <div className="post-content">
+            <p>{postText}</p>
+            <small>Posted by: {username}</small>
+            <div className="comments-section">
+                {post?.comments.map(comment => {
+                    console.log("comment", comment); // Log the comment
+                    return (
                         <div key={comment._id} className="comment">
                             <p>{comment.text}</p>
                             <small>Commented by User ID: {comment.user}</small>
                         </div>
-                    ))}
-                </div>
-                <button 
-                    className="toggle-comment-form-button" 
-                    onClick={toggleCommentForm}
-                >
-                    {isCommentFormVisible ? 'Hide Comment Form' : 'Add a Comment'}
-                </button>
-                {isCommentFormVisible && <CommentForm postId={post._id} />}
+                    );
+                })}
             </div>
+            <button 
+                className="toggle-comment-form-button" 
+                onClick={toggleCommentForm}
+            >
+                {isCommentFormVisible ? 'Hide Comment Form' : 'Add a Comment'}
+            </button>
+            {isCommentFormVisible && <CommentForm postId={post._id} />}
         </div>
+    </div>
     );
 };
 
