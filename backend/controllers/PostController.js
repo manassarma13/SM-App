@@ -24,6 +24,7 @@ exports.getPosts = async (req, res) => {
         const count = await Post.countDocuments();
         const posts = await Post.find()
             .populate('user', 'username')
+            .sort({ createdAt: -1 })  
             .limit(pageSize)
             .skip(pageSize * (page - 1));
 
@@ -32,6 +33,7 @@ exports.getPosts = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 exports.createComment = async (req, res) => {
     const { text, userId } = req.body;
