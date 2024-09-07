@@ -12,7 +12,21 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio();
+
+const socketIO = require('socket.io')(http, {
+    cors: {
+        origin: "http://localhost:3000"
+    }
+});
+
+socketIO.on('connection', (socket) => {
+    console.log('New WebSocket connection');
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
 
 const corsOptions = {
     origin: 'http://localhost:5173', 
@@ -36,6 +50,7 @@ app.get('/', (req, res) => {
 
 app.use((req, res, next) => {
     req.io = io;
+
     next();
 });
 
